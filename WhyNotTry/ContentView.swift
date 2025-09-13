@@ -14,6 +14,8 @@ struct ContentView: View {
     
     var colors: [Color] = [.blue, .cyan, .gray, .green, .indigo, .mint, .orange, .pink, .purple, .red]
     
+    lazy var circleFillColor: Color = colors.randomElement() ?? .blue
+    lazy var iconFillColor: Color = (colors.filter { $0 != circleFillColor }.randomElement()) ?? .yellow
     
     var body: some View{
         VStack{
