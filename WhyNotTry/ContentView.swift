@@ -14,9 +14,12 @@ struct ContentView: View {
     
     var colors: [Color] = [.blue, .cyan, .gray, .green, .indigo, .mint, .orange, .pink, .purple, .red]
     
-    lazy var circleFillColor: Color = colors.randomElement() ?? .blue
-    lazy var iconFillColor: Color = (colors.filter { $0 != circleFillColor }.randomElement()) ?? .yellow
-    
+    var circleFillColor: Color {
+        colors.randomElement() ?? .blue
+    }
+    var iconFillColor: Color {
+        (colors.filter { $0 != circleFillColor }.randomElement()) ?? .yellow
+    }
     var body: some View{
         VStack{
             Text("Why Not Try...")
@@ -26,12 +29,12 @@ struct ContentView: View {
             
             VStack{
                 Circle()
-                    .fill(colors.randomElement() ?? .blue)
+                    .fill(iconFillColor)
                     .padding()
                     .overlay(
                         Image(systemName: "figure.\(selected.lowercased())")
                         .font(.system(size:144))
-                        .foregroundColor(colors.randomElement() ?? .blue)
+                        .foregroundColor(circleFillColor)
                     )
                 
                 Text("\(selected)!")
