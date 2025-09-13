@@ -9,29 +9,41 @@ import SwiftUI
 
 struct ContentView: View {
     var activities =  ["Archery", "Baseball", "Basketball", "Bowling", "Boxing", "Cricket", "Curling", "Fencing", "Golf", "Hiking", "Lacrosse", "Rugby", "Squash"]
-    @State var selected = "Baseball" //mutable element
+    @State private var selected = "Baseball" //mutable element
+    @State private var id = 1
+    
+    var colors: [Color] = [.blue, .cyan, .gray, .green, .indigo, .mint, .orange, .pink, .purple, .red]
+    
     
     var body: some View{
         VStack{
             Text("Why Not Try...")
                 .font(.largeTitle.bold())
             
+            Spacer()
+            
             VStack{
                 Circle()
-                    .fill(.blue)
+                    .fill(colors.randomElement() ?? .blue)
                     .padding()
                     .overlay(
                         Image(systemName: "figure.\(selected.lowercased())")
                         .font(.system(size:144))
-                        .foregroundColor(.white)
+                        .foregroundColor(colors.randomElement() ?? .blue)
                     )
                 
                 Text("\(selected)!")
                     .font(.title)
-            }
+            }.transition(.slide)
+                .id(id)
+            
+            Spacer()
             
             Button("Try Again"){
-                selected = activities.randomElement() ?? "Archery"
+                withAnimation(.easeInOut(duration: 1)){
+                    selected = activities.randomElement() ?? "Archery"
+                    id += 1
+                }
             }
             .buttonStyle(.borderedProminent)
         }
