@@ -42,6 +42,10 @@ struct ContentView: View {
             Spacer()
             
             Button("Try Again"){
+                //add haptic feedback
+                let generator = UIImpactFeedbackGenerator(style: .medium)
+                generator.impactOccurred()
+                
                 withAnimation(.easeInOut(duration: 1)){
                     selected = activities.randomElement() ?? "Archery"
                     id += 1
